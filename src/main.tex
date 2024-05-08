@@ -11,7 +11,7 @@
 
 \columnseprule=0.25pt
 
-\section{常用代码及公式}
+\textbf{常用代码及公式}
 
 $\frac{1}{\sigma^2}\sum(X_i-\mu)\sim\chi^2_n$
 
@@ -19,9 +19,21 @@ $\frac{1}{\sigma^2}\sum(X_i-\overline{X})\sim\chi^2_{n-1}$
 
 $\frac{\overline{X}-\mu}{S/\sqrt{n}}\sim t_{n-1}$ ($n\ge 30$ 当 $\mathcal{N}$)
 
-\texttt{qnorm}: 生成 normal 数据
+$\mathbb{P}(X>z_\alpha)=\alpha$
 
-\section{Measurement}
+\texttt{dnorm} is PDF, \texttt{pnorm} is CDF, \texttt{qnorm}: quantile, $z_{1-\alpha}$, and \texttt{rnorm} 生成数据.
+
+\textbf{Hypothesis Testing}
+\begin{enumerate}
+	\item rejecting the null hypothesis in favor of the alternative hypothesis
+	\item there is not enough evidence to support the alternative hypothesis
+\end{enumerate}
+
+Type I error $\alpha$: reject a true $H_0$, FP
+
+Type II error $\beta$: don't reject a false $H_0$, FN
+
+$1-\beta$: power
 
 \textbf{Scales of Measurement}
 
@@ -120,6 +132,31 @@ Limitations:
 classic tech: $|x_i-\overline{x}|>2\cdot\mathrm{sd}$
 
 boxplot rule: $x_i<Q_1-1.5\cdot\mathrm{IQR}$ or $x_i > Q_3+1.5\cdot\mathrm{IQR}$
+
+\textbf{Sampling Distribution}: 那个 stat 的分布
+
+\textbf{Confidence Interval (CI)}: $\mathbb{P}(L\le \theta\le U)=1-\alpha$
+
+$1-\alpha$: confidence coefficient / degree of confidence
+
+$X\sim\mathcal{N}(\mu,\sigma): \overline{X}-z_{\alpha/2}\cdot\frac{\sigma}{\sqrt{n}}<\mu<\overline{X}+z_{\alpha/2}\cdot\frac{\sigma}{\sqrt{n}}$
+
+$X\sim\mathcal{N}(\mu,*): \overline{X}-t_{\alpha/2,n-1}\cdot\frac{S}{\sqrt{n}}<\mu<\overline{X}+t_{\alpha/2,n-1}\cdot\frac{S}{\sqrt{n}}$
+
+\textbf{t-test}: \texttt{t.test(x, conf.level=0.95, mu=0)}
+
+\texttt{alt="less"} 就是如果真实 $\mu$ 比较大不会拒
+
+\texttt{alt="greater"} 就是如果真实 $\mu$ 比较小不会拒
+
+会给 conf interval，不管 \texttt{alt} 和 \texttt{mu} 给的都是一样的
+
+\textbf{Proportion Test}:
+
+有可能会不合理: $\hat{p}-z_{\frac{\alpha}{2}}\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}<p<\hat{p}+z_{\frac{\alpha}{2}}\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$
+
+\texttt{prop.test(x, n, p=.5, conf.level=.95, alt)}
+
 
 \end{multicols}
 
