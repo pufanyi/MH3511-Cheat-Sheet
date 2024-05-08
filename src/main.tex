@@ -11,6 +11,16 @@
 
 \columnseprule=0.25pt
 
+\section{常用代码及公式}
+
+$\frac{1}{\sigma^2}\sum(X_i-\mu)\sim\chi^2_n$
+
+$\frac{1}{\sigma^2}\sum(X_i-\overline{X})\sim\chi^2_{n-1}$
+
+$\frac{\overline{X}-\mu}{S/\sqrt{n}}\sim t_{n-1}$ ($n\ge 30$ 当 $\mathcal{N}$)
+
+\texttt{qnorm}: 生成 normal 数据
+
 \section{Measurement}
 
 \textbf{Scales of Measurement}
@@ -23,7 +33,6 @@
 \end{enumerate}
 
 \textbf{数据的分类}
-
 \begin{enumerate}
 	\item Categorical / Qualitative: Nominal / Ordinal
 	\item Numerical / Quantitative: Discrete / Continuous
@@ -44,14 +53,12 @@ Skewness: 看尾巴在哪边
 \end{enumerate}
 
 \textbf{Why trimmed mean?}
-
 \begin{enumerate}
-	\item Sometimes may have a lower SE when data is not normal
+	\item May have a lower SE when data is not normal
 	\item Balance between median and mean, protect against outliers
 \end{enumerate}
 
 \textbf{画图}
-
 \begin{enumerate}
 	\item Stem and leaf plot: 左边是数字第一位，右边是后面的，中间用 \texttt{|} 隔开（\texttt{stem(x)}）
 	\item Histogram: \texttt{hist(x)}
@@ -71,17 +78,48 @@ $\mu=e^{\mu+\frac{\sigma^2}{2}}$, $\sigma^2=[\exp(\sigma^2)-1]\exp(2\mu+\sigma^2
 
 $\mathrm{Geomean}=\sqrt[n]{\prod X_i}$
 
-\textbf{Check Normal}
-
-Imposing a Normal PDF on the Histogram
+\textbf{Imposing a Normal PDF on the Histogram}
 
 \begin{lstlisting}
 	hist(x)
 	xpt <- seq(from, to, by=by)
 	n_den <- dnorm(xpt, mean(return), sd(return))
 	ypt <- n_den * length(x) * 10
+	# We notice that each data point in the return dataset represents an area of 1 * 10, so the total area of the histogram would be * 10. 
 	lines(xpt, ypt, col="blue")
 \end{lstlisting}
+
+\textbf{QQplot}: $\left(\Phi^{-1}(q_i), \hat{F}^{-1}_x(q_i)\right)$
+\begin{enumerate}
+	\item 左侧越低表示 longer left tail
+	\item 右侧越高表示 longer right tail
+\end{enumerate}
+
+left skew 是两侧都高，right skew 是两侧都低
+
+t 两个尾巴都长，是左低右高
+
+\textbf{Shapiro-Wilk Test}: \texttt{shapiro.test(x)}
+
+$W=\frac{\left(\sum_{i=1}^{n}a_ix_i\right)^2}{\sum_{i=1}^{n}(x_i-\overline{x})^2}$，$a_i$ 是这个系统自带的常数
+
+$p$ 越小越 normal
+
+Limitations:
+\begin{enumerate}
+	\item Adversely affected when there are tied data
+	\item Has a bias by sample size. Statistically significant result, large sample.
+\end{enumerate}
+
+\textbf{box-plot}: \texttt{boxplot(x\textasciitilde group, data=x)}
+
+\includegraphics[width=0.7\columnwidth]{imgs/boxplot}
+
+\textbf{Outliers}
+
+classic tech: $|x_i-\overline{x}|>2\cdot\mathrm{sd}$
+
+boxplot rule: $x_i<Q_1-1.5\cdot\mathrm{IQR}$ or $x_i > Q_3+1.5\cdot\mathrm{IQR}$
 
 \end{multicols}
 
