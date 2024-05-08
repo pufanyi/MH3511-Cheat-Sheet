@@ -1,0 +1,88 @@
+\documentclass[9pt,landscape]{article}
+
+\usepackage{multicol}
+\usepackage{amsmath}
+
+\input{format.tex} % formatting template
+
+\begin{document}
+
+\begin{multicols}{3}
+
+\columnseprule=0.25pt
+
+\section{Measurement}
+
+\textbf{Scales of Measurement}
+
+\begin{enumerate}
+	\item nominal: 没有 order 的 categories
+	\item ordinal: 有 order
+	\item interval: 数值按照等长区间分类
+	\item ratio: 单点的数值
+\end{enumerate}
+
+\textbf{数据的分类}
+
+\begin{enumerate}
+	\item Categorical / Qualitative: Nominal / Ordinal
+	\item Numerical / Quantitative: Discrete / Continuous
+\end{enumerate}
+
+\textbf{Basic Quantities}
+
+\texttt{quantile(arr, 0.25)}: $Q_1$
+
+$Q_{1, 2, 3}$: $25\%$, $50\%$, $75\%$ percentile
+
+$\mathrm{IQR}=Q_3-Q_1$
+
+Skewness: 看尾巴在哪边
+\begin{enumerate}
+	\item Left-Skewed: Negative Skewness
+	\item Right-Skewed: Positive Skewness
+\end{enumerate}
+
+\textbf{Why trimmed mean?}
+
+\begin{enumerate}
+	\item Sometimes may have a lower SE when data is not normal
+	\item Balance between median and mean, protect against outliers
+\end{enumerate}
+
+\textbf{画图}
+
+\begin{enumerate}
+	\item Stem and leaf plot: 左边是数字第一位，右边是后面的，中间用 \texttt{|} 隔开（\texttt{stem(x)}）
+	\item Histogram: \texttt{hist(x)}
+\end{enumerate}
+
+\textbf{transformation}
+
+log 把中心往右，exp 把中心往左
+
+Log-normal distribution: $\log X\sim\mathcal{N}(\mu,\sigma^2)$
+
+$f(x)=\frac{1}{x\sigma\sqrt{2\pi}}e^{-\frac{(\log x-\mu)}{2\sigma^2}}$
+
+$\mu=e^{\mu+\frac{\sigma^2}{2}}$, $\sigma^2=[\exp(\sigma^2)-1]\exp(2\mu+\sigma^2)$
+
+\textbf{Coefficient of Variation (CV)}: $\frac{\sigma}{\mu}$
+
+$\mathrm{Geomean}=\sqrt[n]{\prod X_i}$
+
+\textbf{Check Normal}
+
+Imposing a Normal PDF on the Histogram
+
+\begin{lstlisting}
+	hist(x)
+	xpt <- seq(from, to, by=by)
+	n_den <- dnorm(xpt, mean(return), sd(return))
+	ypt <- n_den * length(x) * 10
+	lines(xpt, ypt, col="blue")
+\end{lstlisting}
+
+\end{multicols}
+
+\end{document}
